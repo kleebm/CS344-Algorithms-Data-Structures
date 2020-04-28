@@ -24,6 +24,7 @@ void Graph::printAdjacencyList(){
 	}
 }
 
+
 //This needs to be implemented
 void Graph::sort(){
 
@@ -78,6 +79,7 @@ bool Graph::isCyclicUtil(int v, bool visited[], bool *recStack){
 }
 
 
+//figures out if graph is cyclic
 bool Graph::isCyclic(){
 	bool *visited = new bool[num_of_vertices];
 	bool *recStack = new bool[num_of_vertices];
@@ -97,8 +99,6 @@ bool Graph::isCyclic(){
 
 //Will find which nodes have no outgoing edges meaning they are at the end
 //Will build the order from the back
-//FIX:
-//How it looks, is getting stuck on first element
 int Graph::findEmpty(list<int> *adj, int array[]){
 	list<int>::iterator j;
 	for(int i = 0; i< num_of_vertices;i++){
@@ -114,6 +114,7 @@ int Graph::findEmpty(list<int> *adj, int array[]){
 
 }
 
+//Helper method for findEmpty
 bool Graph::inArray(int elem, int array[]){
 	for(int i = 0; i<num_of_vertices;i++){
 		if(elem == array[i])
