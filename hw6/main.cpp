@@ -9,8 +9,8 @@ void runTest1(){
 	G.addEdge(3, 1);
 	G.addEdge(4, 1);
 	G.addEdge(1, 0);
-	G.printAdjacencyList(); //for testing and visibility
-	std::cout <<""<< endl;
+//	G.printAdjacencyList(); //for testing and visibility
+	cout <<"The first graph order is: " << endl;
 	G.sort();
 }
 
@@ -22,6 +22,8 @@ void runTest2(){
 	G.addEdge(2, 3);
 	G.addEdge(0, 2);
 	G.addEdge(2, 4);
+	//G.printAdjacencyList(); //for testing and visibility
+	cout <<"The second graph order is: " <<endl;
 	G.sort();
 }
 

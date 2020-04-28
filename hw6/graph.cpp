@@ -45,7 +45,7 @@ void Graph::sort(){
 
 	//Filling up the array
 	for(int i = num_of_vertices-1; i> -1; i--){
-		order[i] = findEmpty(tempAdj);
+		order[i] = findEmpty(tempAdj,order);
 	}
 
 	//Printing out the answer
@@ -99,11 +99,11 @@ bool Graph::isCyclic(){
 //Will build the order from the back
 //FIX:
 //How it looks, is getting stuck on first element
-int Graph::findEmpty(list<int> *adj){
+int Graph::findEmpty(list<int> *adj, int array[]){
 	list<int>::iterator j;
 	for(int i = 0; i< num_of_vertices;i++){
 		j = adj[i].begin();
-		if(j == adj[i].end()){
+		if(j == adj[i].end() && !inArray(i, array)){
 			for(int k = 0; k <num_of_vertices;k++){
 				adj[k].remove(i);
 			}
@@ -114,3 +114,11 @@ int Graph::findEmpty(list<int> *adj){
 
 }
 
+bool Graph::inArray(int elem, int array[]){
+	for(int i = 0; i<num_of_vertices;i++){
+		if(elem == array[i])
+			return true;
+	}
+	return false;
+
+}
