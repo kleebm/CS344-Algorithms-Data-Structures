@@ -22,7 +22,6 @@ void runTest2(){
 	G.addEdge(2, 3);
 	G.addEdge(0, 2);
 	G.addEdge(2, 4);
-	G.printAdjacencyList(); //for testing
 	G.sort();
 }
 

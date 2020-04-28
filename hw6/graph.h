@@ -9,7 +9,7 @@ private:
 	list <int> *Adj;			//adjancency list    
 	bool isCyclicUtil(int v, bool visited[], bool *recStack); //will determine if graph is cyclic
 	bool isCyclic(); //Will determine if graph is cyclic
-
+	int findEmpty(list<int> *adj);
 public: 
 	Graph(int n);   		//Construct a graph with n vertices
 	void addEdge(int u, int v);		//Add (u, v) to the graph

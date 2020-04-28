@@ -1,4 +1,5 @@
 #include "graph.h"
+#include <list>
 #include <iostream>
 
 using namespace std;
@@ -25,29 +26,35 @@ void Graph::printAdjacencyList(){
 
 //This needs to be implemented
 void Graph::sort(){
-	int begin;
-	int end;
-	int flag = 0;
-/*
-	//first find if there is a begining
-	for(int i = 0; i <num_of_vertices; i++){
-		begin = i;
-		if(!findElement(i)){
-			break;
-		}
 
-		if(i == num_of_vertices-1 && findElement(i)){
-			begin = -1;
-		}
-	}
-	std::cout << "The begining is " << begin <<endl;
-*/
-
+	//first find if the graph is cyclic
 	if(isCyclic()){
 		cout << "The graph is cyclic and can't be ordered "<<endl;
 		return;
 	}
-	cout<<"the graph is not cyclic"<<endl;
+
+	//Make a copy of the adj matrix to keep graph intact while doing operations
+	list<int> *tempAdj;
+	tempAdj = new list<int>[num_of_vertices];
+	for(int i = 0; i < num_of_vertices; i++){
+		tempAdj[i].assign(Adj[i].begin(),Adj[i].end()); 
+	}
+
+	int order[num_of_vertices]; //array that holds the answer
+	list<int>::iterator test;
+
+	//Filling up the array
+	for(int i = num_of_vertices-1; i> -1; i--){
+		order[i] = findEmpty(tempAdj);
+	}
+
+	//Printing out the answer
+	cout<<"The order is: ";
+	for(int i = 0; i < num_of_vertices; i++){
+		cout<< order[i]; 
+	}
+	cout<<endl;
+	cout<<endl;
 }
 
 
@@ -87,20 +94,23 @@ bool Graph::isCyclic(){
 }
 
 
-/*
-//If it finds the element it is looking for then it returns true
-//search is the element it is looking for
-bool Graph::findElement(int search){
+
+//Will find which nodes have no outgoing edges meaning they are at the end
+//Will build the order from the back
+//FIX:
+//How it looks, is getting stuck on first element
+int Graph::findEmpty(list<int> *adj){
 	list<int>::iterator j;
 	for(int i = 0; i< num_of_vertices;i++){
-		for(j = Adj[i].begin(); j != Adj[i].end(); j++){
-			if(search == *j)
-				return true;
+		j = adj[i].begin();
+		if(j == adj[i].end()){
+			for(int k = 0; k <num_of_vertices;k++){
+				adj[k].remove(i);
+			}
+			return i;
 		}
-
 	}
-
-	return false;
+	return -1;
 
 }
-*/
+
