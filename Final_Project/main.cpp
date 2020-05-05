@@ -28,13 +28,13 @@ int main(){
 	//Print all records sorted by student ID, so we do an in-order traversal of the tree
 	records.printAll();
 
-//	cout << "The max GPA is: " << records.maxGPA() << endl;
-/*
+	cout << "The max GPA is: " << records.maxGPA() << endl;
+
 	int id;
 	cout << "Please enter a student ID: " << endl;
 	cin >> id;
 	cout << "The student has GPA: " << records.GPA(id) << endl;
-*/
+
 	//Show the height of the current AVL tree, the output should be 6.
 	cout << "The height of the current tree: ";
 	records.showHeight();
@@ -42,7 +42,7 @@ int main(){
 	//Delete 50 records
 	for(i = 30; i <= 79; i++){
 		//Delete a student record, which has ID "i"
-//		records.deleteID(i);
+		records.deleteID(i);
 	}
 	
 	cout << "After deleting 50 records, we now have: " << endl;

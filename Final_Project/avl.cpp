@@ -29,7 +29,7 @@ void print_helper(node *r){
 		return;
 
 	print_helper(r->left_child);
-	cout<<"student id: " << r->s->id <<endl;
+	cout<<"student id: " << r->s->id << endl;
 	print_helper(r->right_child);
 }
 
@@ -108,7 +108,101 @@ node* insert_helper(node *r, student *s){
 	return balance(r);
 }
 
-
 void AVL::insert(student *s){
 	root = insert_helper(root,s);
+}
+
+
+
+//Methods used to delete elements
+int findMin(node *r){
+	if(r->left_child == NULL)
+		return r->s->id;
+	else
+		return findMin(r->left_child);
+}
+
+node* remove_helper(node *r, int id){
+	if(r == NULL)
+		return NULL;
+
+	else if(id > r->s->id){
+		r->right_child = remove_helper(r->right_child,id);
+		return r;
+	}
+
+	else if(id < r->s->id){
+		r->left_child = remove_helper(r->left_child, id);
+		return r;
+	}
+
+	else{
+		if(r->left_child == NULL && r->right_child == NULL){
+			delete r;
+			return NULL;
+		}
+
+		else if(r->left_child == NULL){
+			node *n = r->right_child;
+			delete r;
+			return n;
+		}
+
+		else if(r->right_child == NULL){
+			node *n = r->left_child;
+			delete r;
+			return n;
+		}
+
+		else{
+			r->s->id = findMin(r->right_child);
+			r->right_child = remove_helper(r->right_child,r->s->id);
+			return r;
+		}
+
+	}
+
+
+}
+
+void AVL::deleteID(int id){
+	root = remove_helper(root,id);
+	computeBF(root);
+}
+
+
+//methods for finding students gpa based on their id
+float GPA_helper(node *r, int id){
+	if(r->s->id == id)
+		return r->s->gpa;
+
+	else if(r->s->id > id)
+		return GPA_helper(r->left_child,id);
+
+	else if(r->s->id < id)
+		return GPA_helper(r->right_child,id);
+
+}
+
+float AVL::GPA(int id){
+	float gpa = GPA_helper(root,id);
+}
+
+
+//methods for finding max GPA
+float max_helper(node *r,float max){
+	if(r == NULL)
+                return max;
+
+        max = max_helper(r->left_child,max);
+        if(r->s->gpa > max)
+		max = r->s->gpa;
+        max = max_helper(r->right_child,max);
+	return max;
+
+}
+
+float AVL::maxGPA(){
+	float max = max_helper(root,-1);
+	return max;
 }
