@@ -40,14 +40,11 @@ void AVL::printAll(){
 
 //Methods helping out the insert method
 void computeBF(node *r){
-	cout<<"bf calc"<<endl;
 	r->height = max(height(r->left_child), height(r->right_child)) + 1;
 	r->bf = height(r->left_child) - height(r->right_child);
-	cout<<"done with BF calculation"<<endl;
 }
 
 node *leftRotate(node *x){
-	cout<<"left rotate"<<endl;
 	node *y = x->right_child;
 	node *beta = y->left_child;
 
@@ -61,7 +58,6 @@ node *leftRotate(node *x){
 }
 
 node *rightRotate(node *y){
-	cout<<"right rotate"<<endl;
 	node *x = y->left_child;
 	node *beta = x->right_child;
 
@@ -77,7 +73,7 @@ node *rightRotate(node *y){
 
 node *balance(node *r){
 	computeBF(r);
-	cout<<"balance"<<endl;
+
 	if(r->bf == 2 && r->left_child->bf >= 0)//left left
 		return rightRotate(r);
 	else if(r->bf == 2 && r->left_child->bf == -1){ //left right
@@ -93,7 +89,6 @@ node *balance(node *r){
 		return leftRotate(r);
 	}
 
-	cout<<"Done with balance"<<endl;
 	return r;
 }
 
@@ -101,7 +96,6 @@ node *balance(node *r){
 
 //Methods used for inserting a node into the tree
 node* insert_helper(node *r, student *s){
-	cout<<"insert helper"<<endl;
 	if(r == NULL)
 		return new node(s,0,0,NULL,NULL);
 	if(s->id == r->s->id)

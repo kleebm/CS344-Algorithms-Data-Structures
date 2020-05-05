@@ -3,6 +3,6 @@ tree: main.o avl.o
 main.o: main.cpp
 	g++ -c main.cpp
 avl.o: avl.h avl.cpp
-	g++ -c avl.cpp
+	g++ -c avl.h avl.cpp
 clean:
-	rm *.o tree
+	rm *.o tree avl.h.gch
